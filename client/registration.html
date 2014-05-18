@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Расписание</title>
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/jquery-ui-1.10.4.min.css">
+<link rel="stylesheet" href="css/wizard.css">
+<script src="js/jquery-2.1.1.js"></script>
+<script src="js/jquery-ui-1.10.4.js"></script>
+<script src="js/jquery.ui.datepicker-be.js"></script>
+<script src="js/jquery.ui.datepicker-ru.js"></script>
+<script>
+
+// Initialization on load
+$(function(){
+    $("button" ).button();
+    $("#end").click(function() {document.location.href="index.html#"});
+    $("#pay").click(function() { alert ("Оплата проведена успешно!")});
+});
+</script>
+<style type="text/css">
+.message {
+	padding-top: 50px;
+	color: #006020;
+	font-size: 40px;
+	font-family: Trebuchet MS, Tahoma, Verdana, Arial, sans-serif;
+}
+</style>
+</head>
+<body>
+
+
+	<div class="wizard-steps">
+		<div class="completed-step">
+			<a href="index.html">Выбор услуги</a>
+		</div>
+		<div class="completed-step">
+			<a href="schedule.html">Выбор времени</a>
+		</div>
+		<div class="active-step">
+			<a href="#">Регистрация</a>
+		</div>
+	</div>
+
+
+	<div style="text-align: center" class="message">
+		РЕГИСТРАЦИЯ
+		<br>
+		<br>
+		<button id="pay">Оплатить</button>
+		<br>
+		<br>
+		<button id="end">Завершить</button>
+	</div>
+</body>
+</html>

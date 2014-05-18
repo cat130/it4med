@@ -16,7 +16,7 @@
 $(function(){
     $("#timepicker").html(timePicker(false));
     $("button" ).button();
-    $("button").click(function() {alert('GO')});
+    $("button").click(function() {document.location.href="registration.html"});
     $("#datepicker").datepicker({
         inline : true,
         beforeShowDay : highlightOdds,
