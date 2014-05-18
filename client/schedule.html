@@ -7,55 +7,191 @@
 <link rel="stylesheet" href="css/jquery-ui-1.10.4.min.css">
 <script src="js/jquery-2.1.1.js"></script>
 <script src="js/jquery-ui-1.10.4.js"></script>
+<script src="js/jquery.ui.datepicker-be.js"></script>
+<script src="js/jquery.ui.datepicker-ru.js"></script>
 <script>
+	{
+	}
 	$(function() {
-		$("#datepicker1").datepicker({
+		$("#datepicker").datepicker({
 			inline : true,
-			beforeShowDay : highlightOdds
-		});
-		$("#datepicker2").datepicker({
-			inline : true
+			beforeShowDay : highlightOdds,
+			hideIfNoPrevNext : true,
+			minDate : "0d",
+			maxDate : "+95d",
+			onSelect: dateSelected
 		});
 	});
 	function highlightOdds(date) {
-		return [ true, date.getDate() % 2 == 1 ? 'odd' : '' ];
+		var weekday = date.getDay();
+		var weekend = weekday == 6 || weekday == 0;
+		var data = (date.getDate() ^ date.getHours() ^ 6) & 15;
+		var classlevel = "free";
+		var canSelect = true;
+		if (weekend) {
+			var classlevel = "weekend";
+			var canSelect = false;
+		} else if (data < 4) {
+			var classlevel = "busy";
+			var canSelect = false;
+		} else if (data < 6) {
+			var classlevel = "nearly";
+		} else if (data < 11) {
+			var classlevel = "half";
+		}
+		// Check a range of possible dates
+		if (date < new Date()) {
+			var classlevel = "";
+			var canSelect = false;
+		} else if (date > new Date().setDate(new Date().getDate() + 95)) {
+			var classlevel = "";
+			var canSelect = false;
+		}
+
+		return [ canSelect, classlevel, '' ];
 	}
+	
+	function dateSelected(date) {
+		$('#dateMessage').hide();
+		$('#datevalue').html(date);
+		$('#timepicker').html(timePicker(true));
+		$('#timepicker a').click(function() {
+			$('#timevalue').html($(this).text());
+			$('#dateMessage').show();
+		});
+	}
+
+	function timePicker(enabled) {
+		var res = "<div class='ux-timepicker ui-widget ui-helper-clearfix ui-corner-all'><table><tbody>";
+		for (var i = 0; i < 10; i++) {
+			res += "<tr>";
+			for (var j = 0; j < 6; j++) {
+				var time = (8 + j * 2 + (i / 5 ^ 0)) + ":" + ((i % 5 == 0) ? "0" : "") + (i * 12 % 60);
+				if (enabled && Math.random() > 0.4) {
+					res += "<td><a href='#' class='ui-state-default'>" + time + "</a></td>";
+				} else {
+					res += "<td><span class='ui-state-default'>" + time + "</span></td>";
+				}
+			}
+			res += "</tr>";
+		}
+		res += "</div></tbody></table>";
+		return res;
+	}
+	
+	// Initialization on load
+	$(function(){
+		$("#timepicker").html(timePicker(false));
+		$("button" ).button();
+		$("button").click(function() {alert('GO')});
+	});
+	
 </script>
 <style type="text/css">
 .ui-datepicker {
-	font-size: 40px;
-}
-
-.ui-datepicker-calendar th {
 	font-size: 35px;
 }
 
-.ui-datepicker td a {
-	text-align: center;
-	padding-top: 10px;
-	height: 80px;
+.ui-datepicker-calendar th {
+	font-size: 30px;
 }
 
-.ui-datepicker .odd a {
+.ui-datepicker .ui-state-default {
+	text-align: center;
+	padding-top: 24px;
+	height: 50px;
+}
+
+.ui-datepicker .free .ui-state-default {
+	background-color: #10ED10;
+	background: #10ED10;
+}
+
+.ui-datepicker .half .ui-state-default {
+	background-color: #C3FF00;
+	background: #C3FF00;
+}
+
+.ui-datepicker .nearly .ui-state-default {
+	background-color: #FFBF0A;
+	background: #FFBF0A;
+}
+
+.ui-datepicker .busy .ui-state-default {
 	color: white;
-	background-color: red;
-	background: red;
+	background-color: #FFB1B1;
+	background: #FFB1B1;
+}
+
+.ui-datepicker-week-end .ui-state-default {
+	color: #d02020;
 }
 
 .hasDatepicker {
 	display: inline-block;
 }
+
+.ux-timepicker td {
+	padding: 5px;
+}
+
+.ux-timepicker td span,.ux-timepicker td a {
+	display: block;
+	padding: 0.2em;
+	padding-top: 14px;
+	height: 34px;
+	text-align: center;
+	text-decoration: none;
+	width: 85px;
+	font-size: 28px;
+}
+
+.ux-timepicker td span {
+	background-color: #FFC1C1;
+	background: #FFD1D1;
+	color: white;
+}
+
+.ux-timepicker td a {
+	background-color: #10ED10;
+	background: #10ED10;
+}
+
+#timepicker {
+	display: inline-block;
+	vertical-align: top;
+}
+
+#dateMessage {
+	padding-top: 50px;
+	color: #006020;
+	font-size: 40px;
+	font-family: Trebuchet MS, Tahoma, Verdana, Arial, sans-serif;
+}
+
+#datevalue,#timevalue {
+	color: orange;
+}
+
+body {
+	padding: 30px;
+}
 </style>
 </head>
 <body>
 
+	<div style="text-align: center;">
+		<div id="datepicker"></div>
+		<div style="display: inline-block; width: 200px;"></div>
 
-	<div class="calendar">
-		Календарь на месяц
-		<div id="datepicker1"></div>
-		<div id="datepicker2"></div>
+
+		<div id="timepicker"></div>
 	</div>
-	<div>Расписание работы</div>
+	<div id="dateMessage" style="display: none; text-align: center;">
+		Вы выбрали: <span id="datevalue"></span> в <span id="timevalue"></span><br>
+		<br>
+		<button>Записаться на прием</button>
+	</div>
 
 </body>
 </html>
