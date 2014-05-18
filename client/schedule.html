@@ -10,11 +10,12 @@
 <script src="js/jquery-ui-1.10.4.js"></script>
 <script src="js/jquery.ui.datepicker-be.js"></script>
 <script src="js/jquery.ui.datepicker-ru.js"></script>
+<script src="js/jquery.cookie.js"></script>
 <script>
 
 // Initialization on load
 $(function(){
-	$("#service").html(window.location.hash.substring(1));
+	$("#service").html($.cookie('service'));
     $("#timepicker").html(timePicker(false));
     $("button" ).button();
     $("button").click(function() {document.location.href="registration.html"});
@@ -61,7 +62,10 @@ $(function(){
 		$('#datevalue').html(date);
 		$('#timepicker').html(timePicker(true));
 		$('#timepicker a').click(function() {
-			$('#timevalue').html($(this).text());
+			var time=$(this).text();
+			$('#timevalue').html(time);
+			$.cookie('date', date);
+			$.cookie('time', time);
 			$('#dateMessage').show();
 		});
 	}
@@ -187,12 +191,12 @@ $(function(){
 			<a href="#">Выбор времени</a>
 		</div>
 		<div>
-			<a href="#">Регистрация</a>
+			<a href="#">Оплата</a>
 		</div>
 	</div>
 
 	<div class="message">
-		Услуга "<span id="service"></span>"<br>Выбирите дату и время посещения.<br><br>
+		Услуга "<span id="service"></span>"<br>Выберите дату и время посещения.<br><br>
 	</div>
 
 	<div style="text-align: center;">
@@ -205,7 +209,7 @@ $(function(){
 	<div id="dateMessage" style="display: none;" class="message">
 		Вы выбрали: <span id="datevalue"></span> в <span id="timevalue"></span><br>
 		<br>
-		<button>Записаться на прием</button>
+		<button>Перейти к оплате</button>
 	</div>
 
 </body>

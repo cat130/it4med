@@ -10,10 +10,14 @@
 <script src="js/jquery-ui-1.10.4.js"></script>
 <script src="js/jquery.ui.datepicker-be.js"></script>
 <script src="js/jquery.ui.datepicker-ru.js"></script>
+<script src="js/jquery.cookie.js"></script>
 <script>
 
 // Initialization on load
 $(function(){
+	$("#service").html($.cookie('service'));
+	$("#datevalue").html($.cookie('date'));
+	$("#timevalue").html($.cookie('time'));
     $("button" ).button();
     $("#end").click(function() {document.location.href="index.html"});
     $("#pay").click(function() { alert ("Оплата проведена успешно!")});
@@ -25,6 +29,12 @@ $(function(){
 	color: #006020;
 	font-size: 40px;
 	font-family: Trebuchet MS, Tahoma, Verdana, Arial, sans-serif;
+}
+button {
+    width: 350px;
+}
+#datevalue,#timevalue,#service {
+	color: orange;
 }
 </style>
 </head>
@@ -39,19 +49,34 @@ $(function(){
 			<a href="schedule.html">Выбор времени</a>
 		</div>
 		<div class="active-step">
-			<a href="#">Регистрация</a>
+			<a href="#">Оплата</a>
 		</div>
 	</div>
 
 
 	<div style="text-align: center" class="message">
-		РЕГИСТРАЦИЯ
+		Оплата услуги
+		<br>
+		<br>
+		<br>
+		Вы выбрали услугу: "<span id="service"></span>"
+		<br>
+		<br>
+		Дата посещения: <span id="datevalue"></span>
+		<br> 
+		Время посещения: <span id="timevalue"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<br>
+		<br>
+		Стоимость заказанной услуги: <span style="color: orange;">72 800</span> бел. рублей
+
+		
+		<br>
 		<br>
 		<br>
 		<button id="pay">Оплатить</button>
 		<br>
 		<br>
-		<button id="end">Завершить</button>
+		<button id="end">Вернуться</button>
 	</div>
 </body>
 </html>
