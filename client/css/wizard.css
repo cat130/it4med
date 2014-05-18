@@ -1,0 +1,97 @@
+/* = STEPS CONTAINER
+----------------------------*/
+.wizard-steps {
+	margin-bottom: 35px;
+    margin-left: 215px;
+    padding:0px;
+    position: relative;
+    clear:both;
+    font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    height: 50px;
+    font-size: 35px;
+    line-height:50px;
+}
+.wizard-steps div {
+    position:relative;
+}
+
+/* = DEFAULT STEPS
+----------------------------*/
+.wizard-steps a {
+    position:relative;
+    display:block;
+    width:auto;
+    margin-right: 35px;
+    padding:0px 10px;
+    float: left;
+    color:#444;
+    background: #F0EEE3;
+    text-decoration:none;
+    cursor: default;
+}
+.wizard-steps a:before {
+    width:0px;
+    height:0px;
+    border-top: 25px solid #F0EEE3;
+    border-bottom: 25px solid #F0EEE3;
+    border-left:25px solid transparent;
+    position: absolute;
+    content: "";
+    top: 0px;
+    left: -25px;
+}
+.wizard-steps a:after {
+    width: 0;
+    height: 0;
+    border-top: 25px solid transparent;
+    border-bottom: 25px solid transparent;
+    border-left:25px solid #F0EEE3;
+    position: absolute;
+    content: "";
+    top: 0px;
+    right: -25px;
+}
+ 
+/* = COMPLETED STEPS
+----------------------------*/
+ 
+.wizard-steps .completed-step a {
+    background: #A3C1C9;
+    cursor: pointer;
+}
+.wizard-steps .completed-step a:before {
+    border-top-color: #A3C1C9;
+    border-bottom-color: #A3C1C9;
+}
+.wizard-steps .completed-step a:after {
+    border-left-color: #A3C1C9;
+}
+
+/* = ACTIVE STEPS
+----------------------------*/
+.wizard-steps .active-step a {
+    background: #E0E040;
+}
+.wizard-steps .active-step a:before {
+    border-top-color: #E0E040;
+    border-bottom-color: #E0E040;
+}
+.wizard-steps .active-step a:after {
+    border-left-color: #E0E040;
+}
+
+/* = HOVER STATES
+----------------------------*/
+.wizard-steps .completed-step:hover a {
+    color:#fff;
+    background: #8F061E;
+}
+
+.wizard-steps .completed-step:hover a:before {
+    border-top: 25px solid #8F061E;
+    border-bottom: 25px solid #8F061E;
+}
+.wizard-steps .completed-step:hover a:after {
+    border-left: 25px solid #8F061E;
+}

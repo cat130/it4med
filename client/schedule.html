@@ -5,23 +5,27 @@
 <title>Расписание</title>
 <link rel="stylesheet" href="css/reset.css">
 <link rel="stylesheet" href="css/jquery-ui-1.10.4.min.css">
+<link rel="stylesheet" href="css/wizard.css">
 <script src="js/jquery-2.1.1.js"></script>
 <script src="js/jquery-ui-1.10.4.js"></script>
 <script src="js/jquery.ui.datepicker-be.js"></script>
 <script src="js/jquery.ui.datepicker-ru.js"></script>
 <script>
-	{
-	}
-	$(function() {
-		$("#datepicker").datepicker({
-			inline : true,
-			beforeShowDay : highlightOdds,
-			hideIfNoPrevNext : true,
-			minDate : "0d",
-			maxDate : "+95d",
-			onSelect: dateSelected
-		});
-	});
+
+// Initialization on load
+$(function(){
+    $("#timepicker").html(timePicker(false));
+    $("button" ).button();
+    $("button").click(function() {alert('GO')});
+    $("#datepicker").datepicker({
+        inline : true,
+        beforeShowDay : highlightOdds,
+        hideIfNoPrevNext : true,
+        minDate : "0d",
+        maxDate : "+95d",
+        onSelect: dateSelected
+    });
+});
 	function highlightOdds(date) {
 		var weekday = date.getDay();
 		var weekend = weekday == 6 || weekday == 0;
@@ -78,13 +82,6 @@
 		res += "</div></tbody></table>";
 		return res;
 	}
-	
-	// Initialization on load
-	$(function(){
-		$("#timepicker").html(timePicker(false));
-		$("button" ).button();
-		$("button").click(function() {alert('GO')});
-	});
 	
 </script>
 <style type="text/css">
@@ -147,8 +144,8 @@
 }
 
 .ux-timepicker td span {
-	background-color: #FFC1C1;
-	background: #FFD1D1;
+	background-color: #FFF0F0;
+	background: #FFF0F0;
 	color: white;
 }
 
@@ -172,13 +169,23 @@
 #datevalue,#timevalue {
 	color: orange;
 }
-
-body {
-	padding: 30px;
-}
 </style>
 </head>
 <body>
+
+
+	<div class="wizard-steps">
+		<div class="completed-step">
+			<a href="index.html">Выбор услуги</a>
+		</div>
+		<div class="active-step">
+			<a href="#">Выбор времени</a>
+		</div>
+		<div>
+			<a href="#">Регистрация</a>
+		</div>
+	</div>
+
 
 	<div style="text-align: center;">
 		<div id="datepicker"></div>
