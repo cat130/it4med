@@ -14,6 +14,7 @@
 
 // Initialization on load
 $(function(){
+	$("#service").html(window.location.hash.substring(1));
     $("#timepicker").html(timePicker(false));
     $("button" ).button();
     $("button").click(function() {document.location.href="registration.html"});
@@ -161,12 +162,16 @@ $(function(){
 
 #dateMessage {
 	padding-top: 50px;
-	color: #006020;
-	font-size: 40px;
-	font-family: Trebuchet MS, Tahoma, Verdana, Arial, sans-serif;
 }
 
-#datevalue,#timevalue {
+.message {
+	color: #006020;
+	font-size: 30px;
+	font-family: Trebuchet MS, Tahoma, Verdana, Arial, sans-serif;
+	text-align: center;
+}
+
+#datevalue,#timevalue,#service {
 	color: orange;
 }
 </style>
@@ -186,6 +191,9 @@ $(function(){
 		</div>
 	</div>
 
+	<div class="message">
+		Услуга "<span id="service"></span>"<br>Выбирите дату и время посещения.<br><br>
+	</div>
 
 	<div style="text-align: center;">
 		<div id="datepicker"></div>
@@ -194,7 +202,7 @@ $(function(){
 
 		<div id="timepicker"></div>
 	</div>
-	<div id="dateMessage" style="display: none; text-align: center;">
+	<div id="dateMessage" style="display: none;" class="message">
 		Вы выбрали: <span id="datevalue"></span> в <span id="timevalue"></span><br>
 		<br>
 		<button>Записаться на прием</button>
